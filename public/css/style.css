@@ -1,3 +1,19 @@
 .bg{
 	background:black;
 }
+.brand-name{
+	color:yellow;
+}
+.navbar .nav{
+	float: right;
+    margin-top: 15px;
+
+}
+.wrapper{
+	width:900px;
+	margin:auto;
+}
+h1{
+	font-size:25px;
+	color:grey;
+}
