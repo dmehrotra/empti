@@ -93,12 +93,11 @@
 			})		
 		})
 		setInterval(checkData, 3000)
-
+		function checkData(){
+			$.get("http://172.20.151.218/arduino/analog/0",function(data,status){
+				debugger;
+			})	
+		}
 	})
-	function checkData(){
-		$.get("http://localhost:8080/getData",function(data,status){
-			$(".real-employee").html(data)
-		})
-	}
 </script>
 </html>
