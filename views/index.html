@@ -63,7 +63,7 @@
 			        <td>1</td>
 			        <td>Mark</td>
 			        <td>Otto</td>
-			        <td>11</td>
+			        <td class='real-employee'>11</td>
 			        <td><a class="btn btn-primary encourage" href="#">Encourage</a></td>
 			      </tr>
 			      <tr>
@@ -92,6 +92,13 @@
 				alert(status)
 			})		
 		})
+		setInterval(checkData, 3000)
+
 	})
+	function checkData(){
+		$.get("http://localhost:8080/getData",function(data,status){
+			$(".real-employee").html(data)
+		})
+	}
 </script>
 </html>
