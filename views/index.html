@@ -8,7 +8,7 @@
 		<link rel="stylesheet" type="text/css" href="./static/css/style.css" />
 	    <title>EMPTI</title>
 		<script type="text/javascript" src="./static/js/jquery.js"></script>
-		<script type="text/javascript" src="./static/js/app.js"></script>
+		
 	</head>
 	<body>
 		<div class="wrapper">
@@ -61,7 +61,7 @@
 			    <tbody>
 			      <tr>
 			        <td>1</td>
-			        <td>Mark</td>
+			        <td>Leon</td>
 			        <td>Otto</td>
 			        <td class='real-employee'>11</td>
 			        <td><a class="btn btn-primary encourage" href="#">Encourage</a></td>
@@ -87,16 +87,34 @@
 	</body>
 <script>
 	$(document).ready(function(){
+		var prev = 0;
+		var buzzing = false;
 		$('.encourage').on("click",function(){
-			$.get("http://172.20.151.218/arduino/digital/12/1",function(data,status){
-				alert(status)
-			})		
+			if (!buzzing){
+				$.get("http://128.122.151.169/arduino/digital/12/1",function(data,status){
+					$('.encourage').html("Enough")
+					buzzing = true;
+				})	
+			}else{
+				$.get("http://128.122.151.169/arduino/digital/12/0",function(data,status){
+					$('.encourage').html("Encourage");
+					buzzing = false;
+				})
+			}	
 		})
-		setInterval(checkData, 3000)
+		setInterval(checkData, 1000)
 		function checkData(){
-			$.get("http://172.20.151.218/arduino/analog/0",function(data,status){
-				debugger;
+			$.get("http://localhost:8080/getData",function(data,status){
+				score = check(data)
+				$('.real-employee').html(score)
+			
 			})	
+		}
+		function check(score){
+			productivity_score = Math.abs(score - prev);
+			score = prev;
+			return productivity_score;
+
 		}
 	})
 </script>

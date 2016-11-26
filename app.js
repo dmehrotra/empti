@@ -10,7 +10,7 @@ app.get('/', function(req,res){
 
 });
 app.get('/getData',function(req,res){
-	request("http://172.20.151.218/arduino/analog/0",function(e,r,b){
+	request("http://128.122.151.169/arduino/analog/0",function(e,r,b){
 		if (e == null){
 			data = b.split('analog')[1]
 		}
