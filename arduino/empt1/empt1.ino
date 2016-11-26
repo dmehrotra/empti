@@ -15,20 +15,20 @@ YunServer server;
 int sensorPin = A0;
 int sensorValue = 0;
 
-const int motorPin =  12;
-const int ledPIN = 13;
+const int motorPin =  A1;//12;
+const int ledPIN = A2;//13;
 
 bool badBoy = false;
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, 13, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, A2, NEO_GRB + NEO_KHZ800);
 int delayval = 1000; // delay for half a second
 
 void setup() {
   // Bridge startup
   pinMode(A0, INPUT);
-  pinMode(A1,INPUT);
-  pinMode(A2,INPUT);
-  pinMode(13, OUTPUT);
+  pinMode(A1,OUTPUT);
+  pinMode(A2,OUTPUT);
+//  pinMode(13, OUTPUT);
   pinMode(12,OUTPUT);
   pixels.begin();
   
@@ -125,7 +125,11 @@ void analogCommand(YunClient client) {
     // Read value and execute command
     value = client.parseInt();
     analogWrite(pin, value);
-
+    if(value == 255){
+      badBoy = true;  
+    }else{
+      badBoy = false;
+    }
     // Send feedback to client
     client.print(F("Pin D"));
     client.print(pin);
