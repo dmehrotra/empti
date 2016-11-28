@@ -64,7 +64,7 @@
 			        <td>Leon</td>
 			        <td>Otto</td>
 			        <td class='real-employee'>11</td>
-			        <td><a class="btn btn-primary encourage" href="#">Encourage</a></td>
+			        <td><a class="btn btn-primary r-encourage" href="#">Encourage</a></td>
 			      </tr>
 			      <tr>
 			        <td>2</td>
@@ -89,15 +89,17 @@
 	$(document).ready(function(){
 		var prev = 0;
 		var buzzing = false;
-		$('.encourage').on("click",function(){
-			if (!buzzing){
-				$.get("http://128.122.151.169/arduino/digital/12/1",function(data,status){
-					$('.encourage').html("Enough")
+		$('.r-encourage').on("click",function(){
+			if (buzzing == false){
+
+				$.get("http://localhost:8080/buzz",function(data,status){
+					$('.r-encourage').html('Enough');
 					buzzing = true;
 				})	
 			}else{
-				$.get("http://128.122.151.169/arduino/digital/12/0",function(data,status){
-					$('.encourage').html("Encourage");
+
+				$.get("http://localhost:8080/stop",function(data,status){
+					$('.r-encourage').html("Encourage");
 					buzzing = false;
 				})
 			}	
@@ -111,8 +113,9 @@
 			})	
 		}
 		function check(score){
+			
 			productivity_score = Math.abs(score - prev);
-			score = prev;
+			prev = score;
 			return productivity_score;
 
 		}

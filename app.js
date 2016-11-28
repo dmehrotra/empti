@@ -17,6 +17,21 @@ app.get('/getData',function(req,res){
 	})
 	res.json(data)
 })
+app.get('/buzz',function(req,res){
+	request("http://128.122.151.169/arduino/digital/12/1",function(e,r,b){
+
+	})
+	res.json("hello")
+})
+
+app.get('/stop',function(req,res){
+	request("http://128.122.151.169/arduino/digital/12/0",function(e,r,b){
+
+	})
+	res.json("hello")
+})
+
+
 app.listen(8080,function(){
 	console.log('listening on port 8080');
 });
